@@ -6,37 +6,39 @@ nltk.download()
 # 加载book数据
 from nltk.book import *
 
+# 关键字检索
+text3.concordance("lived")
 
+# 找到用法、意义与该单词相似的词
+text1.similar("monstrous")
 
-len(set(str))
-len(str)/len(set(str))
+# 找到用法、意义与该单词集合相似的词
+text1.common_contexts(["monstrous","abundant"])
 
-str.count("秦")
-str.count("大秦")
-str.count("国")
+# 相异字词
+set(text4)
 
-fdist=FreqDist(str)
-fdist.plot()
+# 相异字词排序
+sorted(set(text4))
 
-print(sorted (set(str[:100])))
+# 定义词汇多样性的函数
+def lexical_diversity(text):
+    return len(set(text)) / len(text) # 相异字词长度/总字词长度
 
-fdist.plot(100,cumulative=True)
+print(lexical_diversity(text4))
 
+# 构造文本的词汇分布图
+text4.dispersion_plot(["citizens", "democracy", "freedom", "duties", "America", "liberty", "constitution"])
 
+# 普通频率查找：
+fdist1=FreqDist(text1) # 查询文本text1中词汇分布情况
+fdist1.plot(50,cumulative=True) # 输出指定常用词累积频率图
 
-# 呈現中文
-import matplotlib.pyplot as plt
-plt.figure(figsize=(10, 5))
-plt.rcParams['font.sans-serif'] = 'SimHei'
+# hapaxes()函数 返回低频词
+print(fdist1.hapaxes())
+print(len(fdist1.hapaxes()))
 
-with open(r"C:\Users\15845\nlp_hst\ch1\res\dqdg.txt","r+") as f: # 以读写模式[r+]打开文件dqdg.txt
-    str=f.read()
-
-tokens = nltk.word_tokenize(str)   # 标记化
-mytext = nltk.Text(tokens)         # 将文本转换为NLTK Text对象
-mytext.dispersion_plot(["秦","国","商鞅","王"])
-
-from nltk import bigrams
-from collections import Counter
-b = bigrams('This is a test')
-print(Counter(b))
+# 细粒度查找
+V = set ( text1 )
+longwords=[w for w in V if len(w) > 15]
+sorted(longwords)
