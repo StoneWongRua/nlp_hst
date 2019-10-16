@@ -66,5 +66,5 @@ def clean_str(string):
   return string.strip()
 
 if __name__ == "__main__":
-  clean_data(r'C:\Users\15845\SpamBayes\spam')
+  clean_data(r'C:\Users\15845\data\test\1')
   # 在此之后可以把源数据删了
